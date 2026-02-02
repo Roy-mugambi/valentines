@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Valentine Request</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: "Inter", system-ui, sans-serif;
+      background: linear-gradient(135deg, #0f172a, #020617);
+      color: #e5e7eb;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .card {
+      background: #020617;
+      border: 1px solid #1e293b;
+      border-radius: 14px;
+      width: 360px;
+      padding: 24px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    }
+
+    .header {
+      font-size: 14px;
+      letter-spacing: 1px;
+      color: #94a3b8;
+      margin-bottom: 12px;
+    }
+
+    .title {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .field {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
+    .label {
+      color: #94a3b8;
+    }
+
+    .status {
+      margin-top: 16px;
+      padding: 10px;
+      border-radius: 8px;
+      background: #020617;
+      border: 1px dashed #334155;
+      text-align: center;
+      font-size: 14px;
+      color: #facc15;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    button {
+      flex: 1;
+      padding: 10px;
+      font-size: 14px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .approve {
+      background: #22c55e;
+      color: #022c22;
+    }
+
+    .approve:hover {
+      background: #16a34a;
+    }
+
+    .reject {
+      background: #1e293b;
+      color: #64748b;
+      cursor: not-allowed;
+    }
+
+    .approved {
+      color: #22c55e;
+      border-color: #22c55e;
+    }
+
+    .footer {
+      margin-top: 18px;
+      text-align: center;
+      font-size: 12px;
+      color: #475569;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card">
+    <div class="header">VALENTINE REQUEST v1.0</div>
+    <div class="title">Request for Approval</div>
+
+    <div class="field">
+      <span class="label">Requester</span>
+      <span>Roy Mugambi</span>
+    </div>
+
+    <div class="field">
+      <span class="label">Recipient</span>
+      <span>Baby Wangu ❤️</span>
+    </div>
+
+    <div class="field">
+      <span class="label">Request Type</span>
+      <span>Will you be my valentine</span>
+    </div>
+
+    <div class="field">
+      <span class="label">Effective Date</span>
+      <span>14-Feb</span>
+    </div>
+
+    <div class="field">
+      <span class="label">Duration</span>
+      <span>Lifetime (auto-renew)</span>
+    </div>
+
+    <div id="status" class="status">
+      Status: Awaiting Approval
+    </div>
+
+    <div class="buttons">
+      <button class="approve" onclick="approve()">Approve</button>
+      <button class="reject">Reject</button>
+    </div>
+
+    <div class="footer">
+      © Roy Your lover boy • All rights reserved (Except when Proposal is rejected.)
+    </div>
+  </div>
+
+  <script>
+    function approve() {
+      const status = document.getElementById("status");
+      status.textContent = "Status: Approved ❤️ Valentine mode activated";
+      status.classList.add("approved");
+
+      confetti();
+    }
+
+    function confetti() {
+      for (let i = 0; i < 40; i++) {
+        const piece = document.createElement("div");
+        piece.style.position = "fixed";
+        piece.style.top = "-10px";
+        piece.style.left = Math.random() * window.innerWidth + "px";
+        piece.style.width = "6px";
+        piece.style.height = "6px";
+        piece.style.background = "pink";
+        piece.style.borderRadius = "50%";
+        piece.style.opacity = 0.8;
+        piece.style.zIndex = 9999;
+        document.body.appendChild(piece);
+
+        let fall = piece.animate(
+          [
+            { transform: "translateY(0)" },
+            { transform: "translateY(100vh)" }
+          ],
+          { duration: 1500 + Math.random() * 1000, easing: "ease-out" }
+        );
+
+        fall.onfinish = () => piece.remove();
+      }
+    }
+  </script>
+
+</body>
+</html>
