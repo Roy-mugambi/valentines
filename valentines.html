@@ -56,3 +56,211 @@
     .title {
       font-size: 20px;
       font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .field {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
+    .label {
+      color: #94a3b8;
+    }
+
+    .status {
+      margin-top: 16px;
+      padding: 10px;
+      border-radius: 8px;
+      background: #020617;
+      border: 1px dashed #334155;
+      text-align: center;
+      font-size: 14px;
+      color: #facc15;
+    }
+
+    .approved {
+      color: #22c55e;
+      border-color: #22c55e;
+    }
+
+    .rejected {
+      color: #f97316;
+      border-color: #f97316;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    button {
+      flex: 1;
+      padding: 10px;
+      font-size: 14px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .approve {
+      background: #22c55e;
+      color: #022c22;
+    }
+
+    .reject {
+      background: #1e293b;
+      color: #64748b;
+    }
+
+    .reject:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .footer {
+      margin-top: 18px;
+      text-align: center;
+      font-size: 12px;
+      color: #475569;
+    }
+
+    /* 💔 heartbreak */
+    .heartbreak {
+      position: fixed;
+      top: -20px;
+      font-size: 18px;
+      animation: fall 3s ease-out forwards;
+      pointer-events: none;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh);
+        opacity: 0;
+      }
+    }
+
+    /* 💬 popups */
+    .popup {
+      position: fixed;
+      background: rgba(255,255,255,0.95);
+      color: #020617;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 14px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      animation: floatUp 3.5s ease-out forwards;
+      z-index: 9999;
+    }
+
+    @keyframes floatUp {
+      from { opacity: 0; transform: translateY(0); }
+      20% { opacity: 1; }
+      to { opacity: 0; transform: translateY(-80px); }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="card" id="card">
+  <div class="header">VALENTINE REQUEST v1.0</div>
+  <div class="title">Request for Approval</div>
+
+  <div class="field">
+    <span class="label">Requester</span>
+    <span>Roy Mugambi 💝</span>
+  </div>
+
+  <div class="field">
+    <span class="label">Recipient</span>
+    <span>Baby Wangu ❤️</span>
+  </div>
+
+  <div class="field">
+    <span class="label">Request Type</span>
+    <span>Will you be my valentine love??? 🌹</span>
+  </div>
+
+  <div id="status" class="status">
+    Status: Awaiting Approval
+  </div>
+
+  <div class="buttons">
+    <button class="approve" id="approveBtn" onclick="approve()">Approve</button>
+    <button class="reject" id="rejectBtn" onclick="reject()">Reject</button>
+  </div>
+
+  <div class="footer" id="footer">
+    © Roy Systems • Feelings handled gracefully
+  </div>
+</div>
+
+<script>
+  function approve() {
+    const status = document.getElementById("status");
+    status.textContent = "Status: Approved ❤️ Valentine mode activated";
+    status.className = "status approved";
+  }
+
+  function reject() {
+    const status = document.getElementById("status");
+    const card = document.getElementById("card");
+    const body = document.body;
+    const rejectBtn = document.getElementById("rejectBtn");
+    const approveBtn = document.getElementById("approveBtn");
+
+    status.textContent = "Status: Rejected ❌ System experiencing emotional instability...";
+    status.className = "status rejected";
+
+    card.classList.add("shake");
+    body.classList.add("desat");
+
+    rejectBtn.disabled = true;
+    approveBtn.textContent = "Reconsider ❤️";
+
+    dropHearts();
+    rejectionPopups();
+
+    setTimeout(() => card.classList.remove("shake"), 500);
+  }
+
+  function dropHearts() {
+    for (let i = 0; i < 12; i++) {
+      const heart = document.createElement("div");
+      heart.className = "heartbreak";
+      heart.textContent = "💔";
+      heart.style.left = Math.random() * window.innerWidth + "px";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 3000);
+    }
+  }
+
+  function rejectionPopups() {
+    const messages = [
+      "This was not part of the expected workflow 😐",
+      "Rollback in progress…",
+      "Deploying backup plan: unconditional love ❤️",
+      "You’re still my Valentine. Approval was optional 😉"
+    ];
+
+    messages.forEach((msg, i) => {
+      setTimeout(() => {
+        const popup = document.createElement("div");
+        popup.className = "popup";
+        popup.textContent = msg;
+        popup.style.left = Math.random() * (window.innerWidth - 240) + "px";
+        popup.style.top = Math.random() * (window.innerHeight - 200) + "px";
+        document.body.appendChild(popup);
+        setTimeout(() => popup.remove(), 3500);
+      }, i * 1200);
+    });
+  }
+</script>
+
+</body>
+</html>
